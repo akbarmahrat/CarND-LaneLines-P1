@@ -11830,7 +11830,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#importing some useful packages</span>
@@ -11857,7 +11857,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#reading in an image</span>
@@ -11865,8 +11865,6 @@ div#notebook {
 
 <span class="c1">#printing out some stats and plotting</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This image is:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">image</span><span class="p">),</span> <span class="s1">&#39;with dimensions:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This image is:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">image</span><span class="p">),</span> <span class="s1">&#39;with dimensions:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;This image is:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">image</span><span class="p">),</span> <span class="s1">&#39;with dimensions:&#39;</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>  <span class="c1"># if you wanted to show a single color channel image called &#39;gray&#39;, for example, call as plt.imshow(gray, cmap=&#39;gray&#39;)</span>
 </pre></div>
 
@@ -11885,21 +11883,19 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: (540, 960, 3)
-This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 540
-This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[2]:</div>
+<div class="prompt output_prompt">Out[21]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1a8c6a45390&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x276f52dd550&gt;</pre>
 </div>
 
 </div>
@@ -11967,10 +11963,11 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy.polynomial.polynomial</span> <span class="k">as</span> <span class="nn">poly</span>
 
 <span class="k">def</span> <span class="nf">grayscale</span><span class="p">(</span><span class="n">img</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Applies the Grayscale transform</span>
@@ -12034,19 +12031,23 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 <span class="sd">    this function with the weighted_img() function below</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># For testing purposes. Draw all hough lines in white color</span>
+    <span class="c1"># For testing purposes. Plot hough lines in white color</span>
     <span class="c1">##for line in lines:</span>
         <span class="c1">##for x1,y1,x2,y2 in line:</span>
             <span class="c1">##cv2.line(img, (x1, y1), (x2, y2), [255,120,120], thickness) </span>
     
     <span class="c1">## Declare array for left and right points.</span>
-    <span class="n">leftPointsX</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">leftPointsY</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">rightPointsX</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">rightPointsY</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">leftX</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">leftY</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rightX</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">rightY</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="n">maxY</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">maxX</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     
     <span class="c1"># Extra length constant</span>
     <span class="n">extraLen</span><span class="o">=</span><span class="mi">50</span>
+    
 <span class="c1">## Segregate left and right on basis of slope</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
@@ -12054,68 +12055,61 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
             
             <span class="c1">## Left line</span>
             <span class="k">if</span> <span class="n">m</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">leftPointsX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
-                <span class="n">leftPointsY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
-                <span class="n">leftPointsX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
-                <span class="n">leftPointsY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+                <span class="n">leftX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+                <span class="n">leftY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+                <span class="n">leftX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+                <span class="n">leftY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
             <span class="c1">## Right line</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">rightPointsX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
-                <span class="n">rightPointsY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
-                <span class="n">rightPointsX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
-                <span class="n">rightPointsY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+                <span class="n">rightX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x1</span><span class="p">)</span>
+                <span class="n">rightY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y1</span><span class="p">)</span>
+                <span class="n">rightX</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+                <span class="n">rightY</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
 
   
     <span class="c1">## Fitting left line points</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">leftPointsX</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">leftX</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
         <span class="k">return</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1">## data fitting applied least squares fitting </span>
-        <span class="n">leastSquareCoef</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">leftPointsX</span><span class="p">,</span> <span class="n">leftPointsY</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
-        
-        <span class="c1">##print(&#39;lp&#39;, leastSquareCoef)</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">leastSquareCoef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">leastSquareCoef</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1">##print(&#39;left m:&#39;, m)</span>
-        <span class="c1">##print(&#39;left b:&#39;, b)</span>
-        
-        <span class="n">maxY</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">maxX</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
+        <span class="c1">## data fitting coef calculated using numpy.polynomial.polynomial least squares fitting</span>
+        <span class="n">coef</span> <span class="o">=</span> <span class="n">poly</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">leftX</span><span class="p">,</span> <span class="n">leftY</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+        <span class="c1">##print(&#39;lp&#39;, coef)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1">##print(&#39;left B:&#39;, B)</span>
+        <span class="c1">##print(&#39;left A:&#39;, A)</span>
         <span class="n">y1</span> <span class="o">=</span> <span class="n">maxY</span>
         <span class="c1">##print(&#39;left y1:&#39;, y1)</span>
-        <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y1</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y1</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
         <span class="c1">##print(&#39;left x1:&#39;, x1)</span>
         <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">maxY</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">extraLen</span>
         <span class="c1">##print(&#39;left y2:&#39;, y2)</span>
-        <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y2</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y2</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
         <span class="c1">##print(&#39;left x2:&#39;, x2)</span>
         <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thickness</span><span class="p">)</span>
         
-  <span class="c1">## Fitting right Line</span>
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rightPointsX</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+  <span class="c1">## Fitting right Line points</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">rightX</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
         <span class="k">return</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1">##for data fitting applied least squares fitting </span>
-        <span class="n">leastSquareCoef</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">rightPointsX</span><span class="p">,</span> <span class="n">rightPointsY</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
-        <span class="c1">##print(&#39;lp&#39;, leastSquareCoef)</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="n">leastSquareCoef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">leastSquareCoef</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="c1">##print(&#39;right m:&#39;, m)</span>
-        <span class="c1">##print(&#39;right b:&#39;, b)</span>
-        
-        <span class="n">maxY</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">maxX</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="c1">## data fitting coef calculated using numpy.polynomial.polynomial least squares fitting</span>
+        <span class="n">coef</span> <span class="o">=</span>  <span class="n">poly</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">rightX</span><span class="p">,</span> <span class="n">rightY</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> 
+        <span class="c1">##print(&#39;lp&#39;, coef)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">A</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1">##print(&#39;right B:&#39;, B)</span>
+        <span class="c1">##print(&#39;right A:&#39;, A)</span>
+
         <span class="n">y1</span> <span class="o">=</span> <span class="n">maxY</span>
         <span class="c1">##print(&#39;right y1:&#39;, y1)</span>
         
-        <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y1</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y1</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
         <span class="c1">##print(&#39;right x1:&#39;, x1)</span>
         
         <span class="n">y2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">maxY</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="n">extraLen</span>
         <span class="c1">##print(&#39;right y2:&#39;, y2)</span>
         
-        <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y2</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="p">)</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">y2</span> <span class="o">-</span> <span class="n">A</span><span class="p">)</span><span class="o">/</span><span class="n">B</span><span class="p">)</span>
         <span class="c1">##print(&#39;right x2:&#39;, x2)</span>
         <span class="n">cv2</span><span class="o">.</span><span class="n">line</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">),</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">thickness</span><span class="p">)</span>
     
@@ -12165,7 +12159,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -12182,7 +12176,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[4]:</div>
+<div class="prompt output_prompt">Out[23]:</div>
 
 
 
@@ -12231,7 +12225,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Build your pipeline that will draw lane lines on the test_images</span>
@@ -12290,7 +12284,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">imagegray</span><span class="o">=</span> <span class="n">grayscale</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">image1</span><span class="p">))</span>
@@ -12307,13 +12301,13 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[6]:</div>
+<div class="prompt output_prompt">Out[25]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1a8c83a5be0&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x276f53be3c8&gt;</pre>
 </div>
 
 </div>
@@ -12348,7 +12342,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">blur_kernel_size</span> <span class="o">=</span> <span class="mi">15</span>
@@ -12366,13 +12360,13 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[7]:</div>
+<div class="prompt output_prompt">Out[26]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1a8c84133c8&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x276f5420438&gt;</pre>
 </div>
 
 </div>
@@ -12407,7 +12401,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">canny_low_threshold</span> <span class="o">=</span> <span class="mi">20</span>
@@ -12427,13 +12421,13 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[8]:</div>
+<div class="prompt output_prompt">Out[27]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1a8c8476780&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x276f52e44a8&gt;</pre>
 </div>
 
 </div>
@@ -12468,7 +12462,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">ysize</span> <span class="o">=</span> <span class="n">imageCanny</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -12489,13 +12483,13 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[9]:</div>
+<div class="prompt output_prompt">Out[28]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1a8c84d4f28&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x276f9beaa58&gt;</pre>
 </div>
 
 </div>
@@ -12530,7 +12524,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">rho</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># distance resolution in pixels of the Hough grid</span>
@@ -12553,13 +12547,13 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[10]:</div>
+<div class="prompt output_prompt">Out[29]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1a8c86cacf8&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x276f65fdb38&gt;</pre>
 </div>
 
 </div>
@@ -12594,7 +12588,7 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">imageImposed</span><span class="o">=</span> <span class="n">weighted_img</span><span class="p">(</span><span class="n">imageHough</span><span class="p">,</span> <span class="n">image1</span><span class="p">,</span> <span class="n">α</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">β</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">γ</span><span class="o">=</span><span class="mf">0.</span><span class="p">)</span>
@@ -12611,13 +12605,13 @@ This image is: &lt;class &#39;numpy.ndarray&#39;&gt; with dimensions: 960
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[11]:</div>
+<div class="prompt output_prompt">Out[30]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.image.AxesImage at 0x1a8c8a3cb38&gt;</pre>
+<pre>&lt;matplotlib.image.AxesImage at 0x276f665f780&gt;</pre>
 </div>
 
 </div>
@@ -12662,7 +12656,7 @@ imageio.plugins.ffmpeg.download()</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Import everything needed to edit/save/watch video clips</span>
@@ -12677,7 +12671,7 @@ imageio.plugins.ffmpeg.download()</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">process_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
@@ -12731,7 +12725,7 @@ imageio.plugins.ffmpeg.download()</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">white_output</span> <span class="o">=</span> <span class="s1">&#39;test_videos_output/solidWhiteRight.mp4&#39;</span>
@@ -12771,7 +12765,7 @@ imageio.plugins.ffmpeg.download()</code></pre>
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████▋| 221/222 [00:05&lt;00:00, 38.84it/s]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████▋| 221/222 [00:05&lt;00:00, 42.68it/s]
 </pre>
 </div>
 </div>
@@ -12785,7 +12779,7 @@ imageio.plugins.ffmpeg.download()</code></pre>
 <pre>[MoviePy] Done.
 [MoviePy] &gt;&gt;&gt;&gt; Video ready: test_videos_output/solidWhiteRight.mp4 
 
-Wall time: 6.4 s
+Wall time: 6.02 s
 </pre>
 </div>
 </div>
@@ -12805,7 +12799,7 @@ Wall time: 6.4 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -12825,7 +12819,7 @@ Wall time: 6.4 s
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[15]:</div>
+<div class="prompt output_prompt">Out[34]:</div>
 
 
 
@@ -12864,7 +12858,7 @@ Wall time: 6.4 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">yellow_output</span> <span class="o">=</span> <span class="s1">&#39;test_videos_output/solidYellowLeft.mp4&#39;</span>
@@ -12904,7 +12898,7 @@ Wall time: 6.4 s
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|███████████████████████████████████████████████████████████████████████████████▉| 681/682 [00:19&lt;00:00, 34.76it/s]
+<pre>100%|███████████████████████████████████████████████████████████████████████████████▉| 681/682 [00:18&lt;00:00, 39.73it/s]
 </pre>
 </div>
 </div>
@@ -12918,7 +12912,7 @@ Wall time: 6.4 s
 <pre>[MoviePy] Done.
 [MoviePy] &gt;&gt;&gt;&gt; Video ready: test_videos_output/solidYellowLeft.mp4 
 
-Wall time: 20.7 s
+Wall time: 19.1 s
 </pre>
 </div>
 </div>
@@ -12929,7 +12923,7 @@ Wall time: 20.7 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -12949,7 +12943,7 @@ Wall time: 20.7 s
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[17]:</div>
+<div class="prompt output_prompt">Out[36]:</div>
 
 
 
@@ -12987,7 +12981,7 @@ Wall time: 20.7 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">challenge_output</span> <span class="o">=</span> <span class="s1">&#39;test_videos_output/challenge.mp4&#39;</span>
@@ -13027,7 +13021,7 @@ Wall time: 20.7 s
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre> 99%|███████████████████████████████████████████████████████████████████████████████▎| 125/126 [00:06&lt;00:00, 18.19it/s]
+<pre> 99%|███████████████████████████████████████████████████████████████████████████████▎| 125/126 [00:05&lt;00:00, 22.33it/s]
 </pre>
 </div>
 </div>
@@ -13041,7 +13035,7 @@ Wall time: 20.7 s
 <pre>[MoviePy] Done.
 [MoviePy] &gt;&gt;&gt;&gt; Video ready: test_videos_output/challenge.mp4 
 
-Wall time: 9.47 s
+Wall time: 7.37 s
 </pre>
 </div>
 </div>
@@ -13052,7 +13046,7 @@ Wall time: 9.47 s
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;</span>
@@ -13072,7 +13066,7 @@ Wall time: 9.47 s
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[19]:</div>
+<div class="prompt output_prompt">Out[38]:</div>
 
 
 

@@ -14,7 +14,11 @@ My pipeline consisted of following steps
 5. Apply Hough transform to identify lines
 6. Draw the lines on top of the image
 
-In order to draw a single line on the left and right lanes, I modified the draw_lines() function. First I separeted right and left lines points on basis of slope and for data fitting used least squares fitting using function numpy.polyfit() with first degree of fitting polynomial to get the fitting coeficient. And finaly drawn lines on calculated points on basis of coeficient.
+In order to draw a single line on the left and right lanes, I modified the draw_lines() function. First I separeted right and left lines points on basis of slope and for data fitting used least squares fitting using function numpy.polynomial.polynomial.polyfit with first degree of fitting polynomial to get the fitting coeficient. And finaly drawn lines on calculated points on basis of coeficient.
+
+Resource
+https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.polynomial.polynomial.polyfit.html
+
 
 
 ### 2. Identify potential shortcomings with your current pipeline
@@ -25,6 +29,6 @@ While running for challenge video extrapolated lines are shaking alot and line i
 
 ### 3. Suggest possible improvements to your pipeline
 
-A possible improvement would be to try using moving average for smoothing the lines, But not sure how well it will works with sharp curves.
+A possible improvement would be to try using moving average for smoothing the lines, But need to check how well it will works with sharp curves.
 
 Another potential improvement that I feel that I should try to play with brightness and contrast of image to handle the changing brightness of road.
