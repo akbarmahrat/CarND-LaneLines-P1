@@ -18,7 +18,7 @@ In order to draw a single line on the left and right lanes, I modified the draw_
 
 Resource
 https://docs.scipy.org/doc/numpy-dev/reference/generated/numpy.polynomial.polynomial.polyfit.html
-
+https://neutrium.net/mathematics/least-squares-fitting-of-a-polynomial/
 
 
 ### 2. Identify potential shortcomings with your current pipeline
